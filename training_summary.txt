@@ -1,0 +1,56 @@
+======================================================================
+TRAINING SUMMARY REPORT
+======================================================================
+
+TIMING INFORMATION:
+  Start Time:     2025-11-16 14:23:34
+  End Time:       2025-11-16 16:17:47
+  Total Duration: 1:54:12.847669
+  Hours:          1.90h
+
+CONFIGURATION:
+  data_file                     : Eng_Hausa.csv
+  output_dir                    : ./results
+  model_dir                     : ./final_model
+  metrics_file                  : ./training_metrics.json
+  summary_file                  : ./training_summary.txt
+  model_name                    : Helsinki-NLP/opus-mt-ha-en
+  max_length                    : 40
+  num_epochs                    : 10
+  batch_size                    : 1
+  gradient_accumulation_steps   : 16
+  learning_rate                 : 3e-05
+  warmup_steps                  : 300
+  eval_steps                    : 100
+  save_steps                    : 100
+  logging_steps                 : 25
+  min_text_length               : 5
+  max_text_length               : 80
+
+FINAL METRICS:
+  train_runtime            : 6848.1544
+  train_samples_per_second : 4.7950
+  train_steps_per_second   : 0.3010
+  total_flos               : 127076495523840.0000
+  train_loss               : 3.5370
+  step                     : 2060.0000
+
+EPOCH PROGRESSION:
+  Epoch    Loss         Eval Loss    BLEU        
+  --------------------------------------------------
+  0        0.0000       4.7052       5.8768      
+  1        0.0000       4.5928       5.7856      
+  2        0.0000       4.7420       4.6636      
+  3        0.0000       4.6980       2.5165      
+  4        0.0000       3.7651       8.5553      
+  5        0.0000       3.5909       10.7301     
+  6        0.0000       3.5004       10.6789     
+  7        0.0000       3.4520       11.7598     
+  8        0.0000       3.4094       11.8495     
+  9        0.0000       3.3941       11.7390     
+
+BEST PERFORMANCE:
+  Best BLEU Score:  11.8495 (Epoch 8)
+  Lowest Loss:      0.0000 (Epoch 0)
+
+======================================================================
