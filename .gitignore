@@ -1,0 +1,6 @@
+*.log
+
+/final_model/
+/venv/
+/results/
+training_summary.text
