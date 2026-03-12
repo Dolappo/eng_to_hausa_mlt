@@ -3,7 +3,7 @@ A fine-tuned neural machine translation model for translating Hausa to English, 
 
 
 
-## 🎯 Overview
+## Overview
 
 ### Problem Statement
 Hausa is spoken by over 70 million people across West Africa, yet automated translation resources remain limited. This project addresses this gap by fine-tuning a pre-trained translation model on a Hausa-English parallel corpus.
@@ -12,11 +12,11 @@ Hausa is spoken by over 70 million people across West Africa, yet automated tran
 I fine-tuned the Helsinki-NLP MarianMT model (`opus-mt-ha-en`) on 3,284 cleaned sentence pairs over 10 epochs, completing training in under 2 hours on M1 MacBook Air(8gb RAM, 512gb SSD).
 
 ### Key Results
-- ✅ **62.5% accuracy** on manual evaluation (5/8 test sentences correct)
-- ✅ **50% perfect translations** (4/8 exact matches)
-- ✅ **27.9% reduction** in evaluation loss (4.71 → 3.39)
-- ⏱️ **1 hour 54 minutes** total training time
-- 📊 **BLEU score: 11.85** (automated metric - see [Results](#results) for interpretation)
+-  **62.5% accuracy** on manual evaluation (5/8 test sentences correct)
+-  **50% perfect translations** (4/8 exact matches)
+-  **27.9% reduction** in evaluation loss (4.71 → 3.39)
+-  **1 hour 54 minutes** total training time
+-  **BLEU score: 11.85** (automated metric - see [Results](#results) for interpretation)
 
 ---
 
@@ -43,7 +43,7 @@ I fine-tuned the Helsinki-NLP MarianMT model (`opus-mt-ha-en`) on 3,284 cleaned 
 | **Google Translate API** | Closed-source black box | Not a research contribution, can't study internals |
 | **Rule-based MT** | Hand-crafted grammar rules | Simpler but caps at ~30% accuracy, doesn't scale |
 
-**Effect of our decision:**
+**Effect of my decision:**
 - Training completed in **1.9 hours** (vs. weeks/months)
 - Works with **small dataset** (3,284 samples vs. 100K+ needed for scratch training)
 - Achieves **functional quality** for common phrases
@@ -128,12 +128,12 @@ The data after cleaning:
 | **Collect more data** | Time-intensive, diminishing returns without quality control |
 
 **Effect of my decision:**
-- ✅ **Zero OOM crashes** during 1.9 hour training
-- ✅ **Stable training** with consistent improvement
-- ✅ Model learned **core patterns** (subject-verb-object, common vocab)
-- ⚠️ **Lost 31% of data** (1,451 sentence pairs discarded)
-- ⚠️ May **struggle with long sentences** not in training set
-- ⚠️ **Limited rare vocabulary** coverage
+-  **Zero OOM crashes** during 1.9 hour training
+-  **Stable training** with consistent improvement
+-  Model learned **core patterns** (subject-verb-object, common vocab)
+-  **Lost 31% of data** (1,451 sentence pairs discarded)
+-  May **struggle with long sentences** not in training set
+-  **Limited rare vocabulary** coverage
 
 ---
 
@@ -212,15 +212,15 @@ Prediction:  "Give me H2O"      → BLEU: 0 (no word overlap)
 ```
 
 **Strengths:**
-- ✅ Fast, automatic, reproducible
-- ✅ Standard in NMT research (enables comparison with other papers)
-- ✅ Correlates with human judgment in high-resource languages (English-French, etc.)
+-  Fast, automatic, reproducible
+-  Standard in NMT research (enables comparison with other papers)
+-  Correlates with human judgment in high-resource languages (English-French, etc.)
 
 **Weaknesses for Low-Resource Languages:**
-- ❌ Penalizes valid synonyms ("want" = "need" = different words = lower BLEU)
-- ❌ Doesn't understand semantic equivalence
-- ❌ Known to be unreliable for Hausa-English (linguistic distance)
-- ❌ Sensitive to reference translation style
+-  Penalizes valid synonyms ("want" = "need" = different words = lower BLEU)
+-  Doesn't understand semantic equivalence
+-  Known to be unreliable for Hausa-English (linguistic distance)
+-  Sensitive to reference translation style
 
 **BLEU result: 11.85**
 
@@ -230,31 +230,31 @@ Prediction:  "Give me H2O"      → BLEU: 0 (no word overlap)
 
 **Results:**
 ```
-✅ Perfect translations: 4/8 (50%)
+ Perfect translations: 4/8 (50%)
    - "Yaya kake?" → "How are you?" ✓
    - "Ina son ruwa" → "I want water" ✓
    - "Yaushe za ku zo?" → "When will you come?" ✓
    - "Wannan littafi ne mai kyau" → "This is a good book" ✓
 
-✅ Semantically correct: 2/8 (25%)
+ Semantically correct: 2/8 (25%)
    - "Na gode sosai" → "Thanks" (simplified from "Thank you very much")
    - "Ina son ka" → "I want you to." (close to "I love you")
 
-❌ Incorrect: 2/8 (25%)
+ Incorrect: 2/8 (25%)
    - "Ina kwana?" → "How much time is there?" (should be "Good morning")
    - "Barka da zuwa" → "Good news and coming" (should be "Welcome")
 ```
 
 
 **Effect of dual-metric approach:**
-- ✅ **Honest reporting** of automated metrics (BLEU 11.85)
-- ✅ **True quality assessment** via human evaluation (62.5%)
-- ✅ **Research contribution**: Documents BLEU limitations for Hausa-English
-- ✅ **Actionable insights**: Identifies specific failure modes (idioms, greetings)
+-  **Honest reporting** of automated metrics (BLEU 11.85)
+-  **True quality assessment** via human evaluation (62.5%)
+-  **Research contribution**: Documents BLEU limitations for Hausa-English
+-  **Actionable insights**: Identifies specific failure modes (idioms, greetings)
 
 ---
 
-## 📊 Results
+## Results
 
 ### Training Metrics
 
@@ -334,14 +334,14 @@ Phase 3 (Epochs 6-9): Refinement & Convergence
 
 | # | Hausa Input | Model Output | Expected Translation | Assessment |
 |---|-------------|--------------|---------------------|------------|
-| 1 | Yaya kake? | How are you? | How are you? | ✅ Perfect (100%) |
-| 2 | Na gode sosai | Thanks | Thank you very much | ✅ Semantically correct (90%) |
-| 3 | Ina son ruwa | I want water | I want water | ✅ Perfect (100%) |
-| 4 | Yaushe za ku zo? | When will you come? | When will you come? | ✅ Perfect (100%) |
-| 5 | Wannan littafi ne mai kyau | This is a good book | This is a good book | ✅ Perfect (100%) |
-| 6 | Ina son ka | I want you to. | I love you | ⚠️ Semantically close (70%) |
-| 7 | Ina kwana? | How much time is there? | Good morning | ❌ Wrong - idiom lost (0%) |
-| 8 | Barka da zuwa | Good news and coming | Welcome | ❌ Wrong - word-by-word (20%) |
+| 1 | Yaya kake? | How are you? | How are you? |  Perfect (100%) |
+| 2 | Na gode sosai | Thanks | Thank you very much |  Semantically correct (90%) |
+| 3 | Ina son ruwa | I want water | I want water |  Perfect (100%) |
+| 4 | Yaushe za ku zo? | When will you come? | When will you come? |  Perfect (100%) |
+| 5 | Wannan littafi ne mai kyau | This is a good book | This is a good book |  Perfect (100%) |
+| 6 | Ina son ka | I want you to. | I love you |  Semantically close (70%) |
+| 7 | Ina kwana? | How much time is there? | Good morning |  Wrong - idiom lost (0%) |
+| 8 | Barka da zuwa | Good news and coming | Welcome |  Wrong - word-by-word (20%) |
 
 **Quantitative Results:**
 - **Perfect translations:** 4/8 (50.0%)
@@ -368,7 +368,7 @@ Root cause: Insufficient training examples of idiomatic expressions
 
 ---
 
-## 🚀 Installation
+##  Installation
 
 ### Prerequisites
 - Python 3.8 or higher
@@ -477,7 +477,7 @@ for hausa, english in zip(sentences, translations):
 
 ---
 
-## ⚠️ Limitations & Discussion
+##  Limitations & Discussion
 
 ### 1. Dataset Size Constraints
 
@@ -499,8 +499,8 @@ for hausa, english in zip(sentences, translations):
 - Research baseline: 50,000+ sentences
 
 **Mitigation attempts:**
-- ✅ Aggressive cleaning (kept only high-quality pairs)
-- ✅ Used pre-trained model (leverages millions of OPUS sentences)
+-  Aggressive cleaning (kept only high-quality pairs)
+-  Used pre-trained model (leverages millions of OPUS sentences)
 
 ---
 
@@ -510,11 +510,11 @@ for hausa, english in zip(sentences, translations):
 
 **Examples of failures:**
 ```
-"Ina kwana?" → "How much time is there?" ❌
+"Ina kwana?" → "How much time is there?" 
   Correct: "Good morning" (idiom: "How did you sleep?")
   Problem: Model translates literally, misses cultural context
 
-"Barka da zuwa" → "Good news and coming" ❌
+"Barka da zuwa" → "Good news and coming" 
   Correct: "Welcome" (compound phrase)
   Problem: Word-by-word translation instead of phrase meaning
 ```
@@ -525,9 +525,9 @@ for hausa, english in zip(sentences, translations):
 - Pre-trained model bias towards formal/news text (OPUS corpus)
 
 **Impact on usability:**
-- ✅ Works well for: Factual statements, questions, common sentences
-- ⚠️ Struggles with: Greetings, proverbs, slang, colloquial speech
-- ❌ Not suitable for: Literary translation, poetry, cultural texts
+-  Works well for: Factual statements, questions, common sentences
+-  Struggles with: Greetings, proverbs, slang, colloquial speech
+-  Not suitable for: Literary translation, poetry, cultural texts
 
 ---
 
